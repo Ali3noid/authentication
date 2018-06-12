@@ -1,0 +1,9 @@
+CREATE TABLE USERS (
+    id BIGINT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    password VARCHAR(50) NOT NULL
+);
+
+CREATE SEQUENCE "user-seq" START 1;
