@@ -1,0 +1,21 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:9.6
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: P@ssw0rd
+      POSTGRES_DB: authentication-database
+    ports:
+      - "5432:5432"
+    container_name: table-booker-postgres
+  flyway:
+    build: ./flyway
+    volumes:
+      - ${PROJECT_PATH}/flyway/sql:/flyway/sql
+      - ${PROJECT_PATH}/resources/wait-for-it:/wait-for-it
+      - ${PROJECT_PATH}/flyway/conf:/flyway/conf
+    depends_on:
+      - postgres
+    container_name: authentication-flyway
+    tty: true
