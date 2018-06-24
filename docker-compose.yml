@@ -1,5 +1,14 @@
 version: '3'
 services:
+  authentication-service:
+    build: ./authentication-service
+    depends_on:
+      - postgres
+    ports:
+      - "5000:5000"
+    container_name: authentication-service
+    volumes:
+      - ${PROJECT_PATH}/resources/wait-for-it:/wait-for-it
   postgres:
     image: postgres:9.6
     environment:
@@ -8,7 +17,7 @@ services:
       POSTGRES_DB: authentication-database
     ports:
       - "5432:5432"
-    container_name: table-booker-postgres
+    container_name: authentication-postgres
   flyway:
     build: ./flyway
     volumes:
