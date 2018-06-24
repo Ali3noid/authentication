@@ -1,10 +1,7 @@
 package com.turbo.authenticationservice.controller;
 
-import com.turbo.authenticationservice.exception.ResourceNotFoundException;
-import com.turbo.authenticationservice.model.User;
 import com.turbo.authenticationservice.payload.UserIdentityAvailability;
-import com.turbo.authenticationservice.payload.UserProfile;
-import com.turbo.authenticationservice.payload.UserSummary;
+import com.turbo.authenticationservice.model.UserSummary;
 import com.turbo.authenticationservice.repository.UserRepository;
 import com.turbo.authenticationservice.security.CurrentUser;
 import com.turbo.authenticationservice.security.UserPrincipal;
@@ -13,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,12 +43,5 @@ public class UserController {
     public UserIdentityAvailability checkEmailAvailability(@RequestParam(value = "email") String email) {
         Boolean isAvailable = !userRepository.existsByEmail(email);
         return new UserIdentityAvailability(isAvailable);
-    }
-
-    @GetMapping("/users/{username}")
-    public UserProfile getUserProfile(@PathVariable(value = "username") String username) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
-        return new UserProfile(user.getId(), user.getUsername(), user.getName(), user.getCreatedAt());
     }
 }

@@ -1,7 +1,5 @@
 package com.turbo.authenticationservice.model;
 
-import com.turbo.authenticationservice.model.audit.DateAudit;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -31,9 +29,8 @@ import java.util.Set;
 })
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper =false)
-
-public class User extends DateAudit {
+@EqualsAndHashCode
+public class User {
 
     @Id
     @SequenceGenerator(name = "generator-user-seq", sequenceName = "user-seq", allocationSize = 1)
